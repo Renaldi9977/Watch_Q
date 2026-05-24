@@ -1,0 +1,13 @@
+run = "npm install --prefer-offline && npm run dev"
+
+[env]
+PORT = "5000"
+NODE_ENV = "development"
+
+[deployment]
+run = ["sh", "-c", "npm install && npm run build && npm run start"]
+deploymentTarget = "cloudrun"
+
+[[ports]]
+localPort = 5000
+externalPort = 80

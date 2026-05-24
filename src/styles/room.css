@@ -1,0 +1,201 @@
+/* ─── Sound Waves (Voice Activity Detection) ─────────────────── */
+.avatar-wrapper {
+  position: relative;
+}
+
+.sound-waves {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.speaking .sound-waves {
+  opacity: 1;
+}
+
+.wave {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--color, #38bdf8);
+  transform: scale(1);
+  opacity: 0;
+}
+
+.speaking .wave:nth-child(1) {
+  animation: soundWave 1.4s ease-out infinite;
+}
+.speaking .wave:nth-child(2) {
+  animation: soundWave 1.4s ease-out 0.46s infinite;
+}
+.speaking .wave:nth-child(3) {
+  animation: soundWave 1.4s ease-out 0.92s infinite;
+}
+
+@keyframes soundWave {
+  0%   { transform: scale(1);   opacity: 0.75; }
+  100% { transform: scale(1.7); opacity: 0;    }
+}
+
+/* ─── Custom Video Player ─────────────────────────────────────── */
+.custom-video-wrapper {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+/* Controls + overlay tersembunyi saat playing */
+.custom-video-wrapper .video-overlay,
+.custom-video-wrapper .custom-controls {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+/* Tampilkan saat dihover/di-tap atau saat pause */
+.custom-video-wrapper.show-controls .video-overlay,
+.custom-video-wrapper.show-controls .custom-controls,
+.custom-video-wrapper.paused .video-overlay,
+.custom-video-wrapper.paused .custom-controls {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.overlay-play-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s, background 0.15s;
+}
+
+.overlay-play-btn:hover {
+  transform: scale(1.1);
+  background: rgba(0, 0, 0, 0.72);
+}
+
+/* ─── Controls Bar ─────────────────────────────────────────────── */
+.custom-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  padding: 0 12px 10px;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.controls-left  { display: flex; align-items: center; gap: 4px; flex: 1; }
+.controls-right { display: flex; align-items: center; gap: 4px; }
+
+.ctrl-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: background 0.15s;
+  outline: none;
+}
+.ctrl-btn:hover { background: rgba(255,255,255,0.12); }
+
+/* ─── Progress Bar ─────────────────────────────────────────────── */
+.progress-container {
+  position: relative;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: height 0.15s;
+}
+.progress-container:hover { height: 6px; }
+
+.progress-buffered {
+  position: absolute;
+  top: 0; left: 0; height: 100%;
+  background: rgba(255,255,255,0.3);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.progress-bar-fill {
+  position: absolute;
+  top: 0; left: 0; height: 100%;
+  background: #38bdf8;
+  border-radius: 9999px;
+  pointer-events: none;
+  transition: width 0.1s linear;
+}
+
+/* ─── Volume ────────────────────────────────────────────────────── */
+.volume-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 60px;
+  height: 3px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.3);
+  outline: none;
+  cursor: pointer;
+}
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* ─── Time Display ──────────────────────────────────────────────── */
+.time-display {
+  font-size: 11px;
+  font-family: monospace;
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+  margin-left: 4px;
+  user-select: none;
+}
+.time-display .current { color: #fff; font-weight: 600; }
+
+/* ─── Scrollbar sembunyi ────────────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
